@@ -9,15 +9,47 @@ package Tree
  */
 
 trait Tree[A] {
-  def decode(message: List[Encoded]) = {
-    def go(message: List[Encoded], tree: Tree[A]): List[A] = {
+
+  case class Decoded(decoding: A, remainingMessage: List[Encoded])
+
+  def decode(message: List[Encoded], tree: Tree[A]): Option[List[A]] = {
+    def go(message: List[Encoded], tree: Tree[A]): Option[List[A]] = {
+
       val currEncoding = message.head
 
-      List.empty
+      None
+    }
+
+    go(message, tree)
+  }
+
+  def decodeFirstChar(message: List[Encoded], tree: Tree[A]): Option[Decoded] = {
+    val currEncoding = message.head
+
+    currEncoding match {
+      case Zero => decodeFirstChar(message.tail, tree.left)
+      case One => decodeFirstChar(message.tail, tree.right)
     }
   }
+
+  def left: Tree[A]
+
+  def right: Tree[A]
 }
 
-case class Node[A](left: Tree[A], right: Tree[A]) extends Tree[A]
-case class Leaf[A](value: A) extends Tree[A]
-case object Empty extends Tree[Nothing]
+case class Leaf[A](value: A) extends Tree[A] {
+  override def left: Tree[Nothing] = Empty
+
+  override def right: Tree[Nothing] = Empty
+}
+
+
+case object Empty extends Tree[Nothing] {
+  override def left: Tree[Nothing] = this
+
+  override def right: Tree[Nothing] = this
+}
+
+
+case class Node[A](left: Tree[A], right: Tree[A]) extends Tree[A] {
+}
