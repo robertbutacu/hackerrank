@@ -13,6 +13,8 @@ object Example {
           Empty
         )
       )
+
+    println(tree)
     /*
                    ""
               0          1

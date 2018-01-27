@@ -1,5 +1,5 @@
-import Tree.{Empty, Leaf, Node}
+import Tree.{Empty, Example, Leaf, Node}
 
 object Main extends App {
-
+  Example.run()
 }
