@@ -1,4 +1,4 @@
-package tree.adt
+package tree.adt.tree
 
 case class TreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends Tree[A] {
   override def preOrder: List[A] = List(this.value) ::: this.left.preOrder ::: this.right.preOrder

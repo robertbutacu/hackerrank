@@ -1,6 +1,6 @@
 package tree.huffman.coding
 
-import tree.adt.{Leaf, HuffmanEncodingTree}
+import tree.adt.HuffmanEncodingTree.{HuffmanEncodingTree, Leaf}
 
 case class MessageDecoder[A](tree: HuffmanEncodingTree[A]) {
   def decode(message: List[Encoded]): Option[List[A]] = {

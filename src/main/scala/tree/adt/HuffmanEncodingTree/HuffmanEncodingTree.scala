@@ -1,4 +1,4 @@
-package tree.adt
+package tree.adt.HuffmanEncodingTree
 
 /*
         {ϕ,5}

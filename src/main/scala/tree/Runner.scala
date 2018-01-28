@@ -1,6 +1,7 @@
 package tree
 
-import tree.adt._
+import tree.adt.HuffmanEncodingTree.{Branch, HuffmanEncodingTree, Leaf}
+import tree.adt.tree.{Empty, Tree, TreeBranch}
 import tree.huffman.coding.{MessageDecoder, One, Zero}
 
 object Runner {

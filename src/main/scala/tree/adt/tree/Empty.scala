@@ -1,4 +1,4 @@
-package tree.adt
+package tree.adt.tree
 
 //TODO work with higher kinds instead of this improvisation
 case class Empty[A]() extends Tree[A] {

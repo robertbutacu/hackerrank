@@ -1,4 +1,4 @@
-package tree.adt
+package tree.adt.tree
 
 trait Tree[A] {
   def left: Tree[A]
