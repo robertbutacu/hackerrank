@@ -1,3 +1,3 @@
 package Tree
 
-case class Decoded[Option[_]](decoding: Option[_], remainingMessage: List[Encoded])
+case class Decoded[A](decoding: Option[A], remainingMessage: List[Encoded])
