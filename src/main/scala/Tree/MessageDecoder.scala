@@ -2,11 +2,17 @@ package Tree
 
 case class MessageDecoder[A](tree: Tree[A]) {
   def decode(message: List[Encoded]): Option[List[A]] = {
-    None
+    def go(message: List[Encoded], tree: Tree[A]): Option[List[A]] = {
+      val decodedFirst = decodeFirstChar(message)
+
+      None
+    }
+
+    go(message, tree)
   }
 
-  def decodeFirstChar(message: List[Encoded]): Option[Decoded[A]] = {
-    def go(message: List[Encoded], tree: Tree[A]): Option[Decoded[A]] = {
+  def decodeFirstChar(message: List[Encoded]): Option[Decoded[Option]] = {
+    def go(message: List[Encoded], tree: Tree[A]): Option[Decoded[Option]] = {
       tree match {
         case Leaf(value) => Some(Decoded(value, message))
         case _           =>
