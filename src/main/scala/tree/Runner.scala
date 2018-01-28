@@ -22,7 +22,7 @@ object Runner {
          4    5       6    7
 
          PreOrder: 1 2 4 5 3 6 7
-         PostOrder: 3 7 5 12 20 15
+         PostOrder: 4 5 2 6 7 3 1
          InOrder: 4 2 5 1 6 3 7
      */
 
