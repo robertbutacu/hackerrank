@@ -1,8 +1,11 @@
-package Tree
+package tree
 
-object Example {
+import tree.adt.{Branch, Leaf, HuffmanEncodingTree}
+import tree.huffman.coding.{MessageDecoder, One, Zero}
+
+object Runner {
   def run(): Unit = {
-    val tree: Tree[String] =
+    val tree: HuffmanEncodingTree[String] =
       Branch(
         Branch(
           Leaf(Some("A")),

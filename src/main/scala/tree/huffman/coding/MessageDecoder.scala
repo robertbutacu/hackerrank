@@ -1,8 +1,10 @@
-package Tree
+package tree.huffman.coding
 
-case class MessageDecoder[A](tree: Tree[A]) {
+import tree.adt.{Leaf, HuffmanEncodingTree}
+
+case class MessageDecoder[A](tree: HuffmanEncodingTree[A]) {
   def decode(message: List[Encoded]): Option[List[A]] = {
-    def go(message: List[Encoded], tree: Tree[A]): Option[List[A]] = {
+    def go(message: List[Encoded], tree: HuffmanEncodingTree[A]): Option[List[A]] = {
       val decodedFirst = decodeFirstChar(message)
 
       val decodings = for {
@@ -26,7 +28,7 @@ case class MessageDecoder[A](tree: Tree[A]) {
   }
 
   def decodeFirstChar(message: List[Encoded]): Option[Decoded[A]] = {
-    def go(message: List[Encoded], tree: Tree[A]): Option[Decoded[A]] = {
+    def go(message: List[Encoded], tree: HuffmanEncodingTree[A]): Option[Decoded[A]] = {
       tree match {
         case Leaf(value) => Option.apply(Decoded(value, message))
         case _ =>

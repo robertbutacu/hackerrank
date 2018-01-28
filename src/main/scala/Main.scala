@@ -1,5 +1,5 @@
-import Tree.Example
+import tree.Runner
 
 object Main extends App {
-  Example.run()
+  Runner.run()
 }
