@@ -29,6 +29,7 @@ object Runner {
     println("Inorder: " + tree.inOrder)
     println("Postorder: " + tree.postOrder)
     println("Preorder: " + tree.preOrder)
+    println("Height: " + tree.height)//should be 2
   }
 
   def runDecoding(): Unit = {
