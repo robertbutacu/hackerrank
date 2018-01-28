@@ -5,8 +5,6 @@ case class MessageDecoder[A](tree: Tree[A]) {
     def go(message: List[Encoded], tree: Tree[A]): Option[List[A]] = {
       val decodedFirst = decodeFirstChar(message)
 
-      //println(decodedFirst)
-
       val decodings = for {
         d <- decodedFirst
         decoded <- d.decoding
@@ -20,7 +18,7 @@ case class MessageDecoder[A](tree: Tree[A]) {
 
       restOfDecoding match {
         case None => decodings.map(d => List(d))
-        case Some(d) => decodings.map(j => d :+ j)
+        case Some(d) => decodings.map(j => List(j) ::: d)
       }
     }
 

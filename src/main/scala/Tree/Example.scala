@@ -14,7 +14,14 @@ object Example {
         )
       )
 
-    println(MessageDecoder(tree).decode(List(One, Zero, One, Zero, One, Zero)))
+    println(MessageDecoder(tree).decode(List(
+      One, Zero,//C
+      One, Zero,//C
+      One, Zero,//C
+      Zero, One,//B
+      Zero, Zero,//A
+      Zero, One//B
+    )))
     /*
                    ""
               0          1
