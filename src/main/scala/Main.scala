@@ -1,5 +1,6 @@
 import tree.Runner
 
 object Main extends App {
-  Runner.run()
+  //Runner.runDecoding()
+  Runner.runTraversals()
 }

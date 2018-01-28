@@ -1,10 +1,37 @@
 package tree
 
-import tree.adt.{Branch, Leaf, HuffmanEncodingTree}
+import tree.adt._
 import tree.huffman.coding.{MessageDecoder, One, Zero}
 
 object Runner {
-  def run(): Unit = {
+  def runTraversals(): Unit = {
+    val tree: Tree[Int] =
+      TreeBranch(1,
+        TreeBranch(2,
+          TreeBranch(4, Empty(), Empty()),
+          TreeBranch(5, Empty(), Empty())),
+        TreeBranch(3,
+          TreeBranch(6, Empty(), Empty()),
+          TreeBranch(7, Empty(), Empty()))
+      )
+    /*
+                  1
+
+            2            3
+
+         4    5       6    7
+
+         PreOrder: 1 2 4 5 3 6 7
+         PostOrder: 3 7 5 12 20 15
+         InOrder: 4 2 5 1 6 3 7
+     */
+
+    println("Inorder: " + tree.inOrder)
+    println("Postorder: " + tree.postOrder)
+    println("Preorder: " + tree.preOrder)
+  }
+
+  def runDecoding(): Unit = {
     val tree: HuffmanEncodingTree[String] =
       Branch(
         Branch(
