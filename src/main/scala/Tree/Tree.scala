@@ -9,24 +9,20 @@ package Tree
  */
 
 abstract class Tree[A] {
-  def decode(message: List[Encoded]): Option[List[A]] = None
+  def left: Tree[A]
 
-  def decodeFirstChar(message: List[Encoded], tree: Tree[A]): Option[Decoded[A]] = None
-
-  def left: Option[Tree[A]]
-
-  def right: Option[Tree[A]]
+  def right: Tree[A]
 }
 
 
 case class Leaf[A](value: Option[A] = None) extends Tree[A] {
-  override def left: Option[Tree[A]] = None
+  override def left: Tree[A] = this
 
-  override def right: Option[Tree[A]] = None
+  override def right: Tree[A] = this
 }
 
 case class Branch[A](leftBranch: Tree[A], rightBranch: Tree[A]) extends Tree[A] {
-  override def left: Option[Tree[A]] = Some(leftBranch)
+  override def left: Tree[A] = leftBranch
 
-  override def right: Option[Tree[A]] = Some(rightBranch)
+  override def right: Tree[A] = rightBranch
 }
