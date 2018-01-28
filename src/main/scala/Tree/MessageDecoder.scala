@@ -5,21 +5,23 @@ case class MessageDecoder[A](tree: Tree[A]) {
     def go(message: List[Encoded], tree: Tree[A]): Option[List[A]] = {
       val decodedFirst = decodeFirstChar(message)
 
+      //println(decodedFirst)
+
       val decodings = for {
-        d <- decodedFirst.toList
+        d <- decodedFirst
         decoded <- d.decoding
-        if d.remainingMessage.nonEmpty
-        toBeDecoded <- go(d.remainingMessage, tree)
-      } yield List(decoded) ::: toBeDecoded
+      } yield decoded
 
-      val result = for {
-        decodingLetters <- decodings
-        decodedLetter <- decodingLetters
-      } yield decodedLetter
+      val restOfDecoding = for {
+        decoding <- decodedFirst
+        if decoding.remainingMessage.nonEmpty
+        remaining <- decode(decoding.remainingMessage)
+      } yield remaining
 
-      if (result.isEmpty) None
-      else Some(result)
-
+      restOfDecoding match {
+        case None => decodings.map(d => List(d))
+        case Some(d) => decodings.map(j => d :+ j)
+      }
     }
 
     go(message, tree)
@@ -37,9 +39,7 @@ case class MessageDecoder[A](tree: Tree[A]) {
       }
     }
 
-    println(message)
-
-    if(message.isEmpty) None
+    if (message.isEmpty) None
     else go(message, tree)
   }
 }
