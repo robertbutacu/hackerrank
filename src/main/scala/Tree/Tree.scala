@@ -8,56 +8,25 @@ package Tree
 {B,1}  {C,1}
  */
 
-trait Tree[+A] {
-  def decode(message: List[Encoded]): Option[List[A]]
+abstract class Tree[A] {
+  def decode(message: List[Encoded]): Option[List[A]] = None
 
-  def decodeFirstChar(message: List[Encoded]): Option[Decoded[A]]
+  def decodeFirstChar(message: List[Encoded], tree: Tree[A]): Option[Decoded[A]] = None
 
-  def left: Tree[A]
+  def left: Option[Tree[A]]
 
-  def right: Tree[A]
-}
-
-case class Leaf[A](value: A) extends Tree[A] {
-  override def decode(message: List[Encoded]): Option[List[A]] = None
-
-  override def decodeFirstChar(message: List[Encoded]): Option[Decoded[A]] = None
-
-  override def left: Tree[Nothing] = Empty
-
-  override def right: Tree[Nothing] = Empty
+  def right: Option[Tree[A]]
 }
 
 
-case object Empty extends Tree[Nothing] {
-  override def left: Tree[Nothing] = this
+case class Leaf[A](value: Option[A] = None) extends Tree[A] {
+  override def left: Option[Tree[A]] = None
 
-  override def right: Tree[Nothing] = this
+  override def right: Option[Tree[A]] = None
 }
 
+case class Branch[A](leftBranch: Tree[A], rightBranch: Tree[A]) extends Tree[A] {
+  override def left: Option[Tree[A]] = Some(leftBranch)
 
-case class Node[A](left: Tree[A], right: Tree[A]) extends Tree[A] {
-  def decode(message: List[Encoded], tree: Tree[A]): Option[List[A]] = {
-    def go(message: List[Encoded], tree: Tree[A]): Option[List[A]] = {
-
-      val currEncoding = message.head
-
-      None
-    }
-
-    go(message, tree)
-  }
-
-  def decodeFirstChar(message: List[Encoded], tree: Tree[A]): Option[Decoded[A]] = {
-    val currEncoding = message.head
-
-    currEncoding match {
-      case Zero => decodeFirstChar(message.tail, tree.left)
-      case One => decodeFirstChar(message.tail, tree.right)
-    }
-  }
-
-  override def decode(message: List[Encoded]): Option[List[A]] = ???
-
-  override def decodeFirstChar(message: List[Encoded]): Option[Decoded[A]] = ???
+  override def right: Option[Tree[A]] = Some(rightBranch)
 }

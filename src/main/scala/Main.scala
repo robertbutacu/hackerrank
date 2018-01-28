@@ -1,4 +1,4 @@
-import Tree.{Empty, Example, Leaf, Node}
+import Tree.Example
 
 object Main extends App {
   Example.run()

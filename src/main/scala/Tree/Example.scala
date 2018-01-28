@@ -1,16 +1,16 @@
 package Tree
 
 object Example {
-  def run() = {
+  def run(): Unit = {
     val tree: Tree[String] =
-      Node(
-        Node(
-          Leaf("A"),
-          Leaf("B")
+      Branch(
+        Branch(
+          Leaf(Some("A")),
+          Leaf(Some("B"))
         ),
-        Node(
-          Leaf("C"),
-          Empty
+        Branch(
+          Leaf(Some("C")),
+          Leaf()
         )
       )
 
