@@ -14,4 +14,14 @@ trait Tree[A] {
   def leveling: List[A]
 
   def height: Int
+
+  def BFS(): List[A]
+
+  def DFS(): List[A]
+
+  def prune(subtree: Tree[A]): Tree[A]
+
+  def commonAncestor(el1: A, el2: A): A
+
+  def add(el: A): Tree[A]
 }

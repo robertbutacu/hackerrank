@@ -15,4 +15,14 @@ case class TreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends Tree[A
 
     Math.max(leftHeight, rightHeight)
   }
+
+  override def BFS(): List[A] = ???
+
+  override def DFS(): List[A] = ???
+
+  override def prune(subtree: Tree[A]): Tree[A] = ???
+
+  override def commonAncestor(el1: A, el2: A): A = ???
+
+  override def add(el: A): Tree[A] = ???
 }

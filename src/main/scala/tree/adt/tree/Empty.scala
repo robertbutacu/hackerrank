@@ -15,4 +15,14 @@ case class Empty[A]() extends Tree[A] {
   override def leveling: List[Nothing] = List.empty
 
   override def height: Int = -1
+
+  override def BFS(): List[A] = List.empty
+
+  override def DFS(): List[A] = List.empty
+
+  override def prune(subtree: Tree[A]): Tree[A] = ???
+
+  override def commonAncestor(el1: A, el2: A): Option[A] = ???
+
+  override def add(el: A) = TreeBranch(el, Empty(), Empty())
 }
