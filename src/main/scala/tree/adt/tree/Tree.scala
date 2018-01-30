@@ -21,7 +21,7 @@ trait Tree[A] {
 
   def prune(subtree: Tree[A]): Tree[A]
 
-  def commonAncestor(el1: A, el2: A): A
+  def commonAncestor(el1: A, el2: A): Option[A]
 
   def add(el: A): Tree[A]
 }
