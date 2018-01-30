@@ -53,6 +53,32 @@ object PowerSum {
   }
 
   def compute(X: Int, N: Int): Combinations = {
-    Combinations()
+
+    def negative = Math.min(-X, X)
+
+    def positive = Math.max(-X, X)
+
+    def go(remainingSum: Int, curr: Int, road: List[Int], result: List[List[Int]]): Option[Combinations] = {
+      val currValue = Math.pow(curr, N).toInt
+
+      val currIteration = remainingSum - currValue
+
+      val currResult = if (currIteration == 0) result :+ (road :+ currIteration) else result
+
+      val nextIterationsCurrValues = ((curr + 1) to Math.max(-X, X)).toList
+
+      val nextIterationsResults = for {
+        next <- nextIterationsCurrValues
+        possibleSolution <- go(currIteration, next, road :+ curr, currResult)
+      } yield possibleSolution
+
+      Some(
+        nextIterationsResults.foldRight(Combinations())((acc, total) => total.add(acc))
+      )
+    }
+
+    (negative to positive)
+      .map{e => go(X, e, List.empty, List.empty)}
+      .foldRight(Combinations())((acc, total) => acc.map(total.add).getOrElse(Combinations()))
   }
 }
