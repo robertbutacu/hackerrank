@@ -61,7 +61,8 @@ object PowerSum {
     def go(remainingSum: Int, curr: Int, road: List[Int], result: List[List[Int]]): Option[Combinations] = {
       val currValue = Math.pow(curr, N).toInt
 
-      val currIteration = remainingSum - currValue
+      val currIteration = remainingSum + Math.min(currValue, -currValue)
+      println(remainingSum + " + " + currValue + " = " + currIteration)
 
       val currResult = if (currIteration == 0) result :+ (road :+ currIteration) else result
 
