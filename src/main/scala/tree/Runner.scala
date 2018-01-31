@@ -27,10 +27,11 @@ object Runner {
          InOrder: 4 2 5 1 6 3 7
      */
 
-    println("Inorder: " + tree.inOrder)
-    println("Postorder: " + tree.postOrder)
-    println("Preorder: " + tree.preOrder)
-    println("Height: " + tree.height)//should be 2
+    //println("Inorder: " + tree.inOrder)
+    //println("Postorder: " + tree.postOrder)
+    //println("Preorder: " + tree.preOrder)
+    //println("Height: " + tree.height)//should be 2
+    println("Searching for 5: " + tree.DFS(5) )// should be 1 2 5
   }
 
   def runDecoding(): Unit = {

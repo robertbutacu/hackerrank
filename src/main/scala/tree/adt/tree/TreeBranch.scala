@@ -26,5 +26,22 @@ case class TreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends Tree[A
 
   override def add(el: A): Tree[A] = ???
 
-  override def DFS(el: A) = ???
+  override def DFS(el: A): Option[List[A]] = {
+    def go(curr: Tree[A], road: List[A]): Option[List[A]] = {
+      curr match {
+        case Empty() => None
+        case TreeBranch(v, l, r) =>
+          if (v == el)
+            Some(road :+ v)
+          else {
+            val left  = go(l, road :+ v)
+            val right = go(r, road :+ v)
+
+            left orElse right
+          }
+      }
+    }
+
+    go(this, List.empty)
+  }
 }
