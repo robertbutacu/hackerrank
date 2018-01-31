@@ -25,4 +25,6 @@ case class Empty[A]() extends Tree[A] {
   override def commonAncestor(el1: A, el2: A): Option[A] = ???
 
   override def add(el: A) = TreeBranch(el, Empty(), Empty())
+
+  override def DFS(el: A) = None
 }

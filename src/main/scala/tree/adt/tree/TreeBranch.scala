@@ -25,4 +25,6 @@ case class TreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends Tree[A
   override def commonAncestor(el1: A, el2: A): Option[A] = ???
 
   override def add(el: A): Tree[A] = ???
+
+  override def DFS(el: A) = ???
 }
