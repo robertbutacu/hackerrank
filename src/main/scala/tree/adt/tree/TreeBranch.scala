@@ -22,7 +22,15 @@ case class TreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends Tree[A
 
   override def prune(subtree: Tree[A]): Tree[A] = ???
 
-  override def commonAncestor(el1: A, el2: A): Option[A] = ???
+  override def commonAncestor(el1: A, el2: A): Option[A] = {
+    for {
+      firstDFS <- this.DFS(el1)
+      secondDFS <- this.DFS(el2)
+    } yield firstDFS.zip(secondDFS)
+      .takeWhile(e => e._1 == e._2)
+      .last
+      ._1
+  }
 
   override def add(el: A): Tree[A] = ???
 
