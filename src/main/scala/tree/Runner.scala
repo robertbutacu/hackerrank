@@ -32,7 +32,8 @@ object Runner {
     //println("Preorder: " + tree.preOrder)
     //println("Height: " + tree.height)//should be 2
     //println("Searching for 5: " + tree.DFS(6) )// should be 1 2 5
-    println("Common ancestor: " + tree.commonAncestor(4, 9))
+    //println("Common ancestor: " + tree.commonAncestor(4, 9))
+    println("BFS: " + tree.BFS())//should be 1 2 3 4 5 6 7
   }
 
   def runDecoding(): Unit = {

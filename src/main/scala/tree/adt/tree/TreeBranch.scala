@@ -1,5 +1,7 @@
 package tree.adt.tree
 
+import scala.annotation.tailrec
+
 case class TreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends Tree[A] {
   override def preOrder: List[A] = List(this.value) ::: this.left.preOrder ::: this.right.preOrder
 
@@ -16,7 +18,17 @@ case class TreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends Tree[A
     Math.max(leftHeight, rightHeight)
   }
 
-  override def BFS(): List[A] = ???
+  override def BFS(): List[A] = {
+    @tailrec
+    def go(curr: Tree[A], queue: List[Tree[A]], bfs: List[A]): List[A] = {
+      go(queue.head, queue.tail ::: List(curr.left, curr.right), curr match {
+        case Empty() => bfs
+        case TreeBranch(v, _, _) => bfs :+ v
+      })
+    }
+
+    go(this, List.empty, List.empty)
+  }
 
   override def DFS(): List[A] = this.left.BFS() ::: List(this.value) ::: this.right.BFS()
 
