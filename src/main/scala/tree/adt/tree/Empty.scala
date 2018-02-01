@@ -27,4 +27,8 @@ case class Empty[A]() extends Tree[A] {
   override def add(el: A) = TreeBranch(el, Empty(), Empty())
 
   override def DFS(el: A): Option[List[A]] = None
+
+  override def map[B](f: A => B): Tree[B] = Empty[B]()
+
+  override def forAll(f: A => Boolean): Boolean = true
 }

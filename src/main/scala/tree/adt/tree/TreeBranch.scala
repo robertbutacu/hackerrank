@@ -64,4 +64,8 @@ case class TreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends Tree[A
 
     go(this, List.empty)
   }
+
+  override def map[B](f: A => B) = TreeBranch(f(this.value), left.map(f), right.map(f))
+
+  override def forAll(f: A => Boolean) = f(value) && left.forAll(f) && right.forAll(f)
 }

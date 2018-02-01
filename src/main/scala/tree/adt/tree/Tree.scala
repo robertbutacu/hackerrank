@@ -23,9 +23,11 @@ trait Tree[A] {
 
   def prune(subtree: Tree[A]): Tree[A]
 
-  // in order to do so, perform DFS(el1), DFS(el2)
-  // and, a take while _ == _ and the last element is the common ancestor
   def commonAncestor(el1: A, el2: A): Option[A]
 
   def add(el: A): Tree[A]
+
+  def map[B](f: A => B): Tree[B]
+
+  def forAll(f: A => Boolean): Boolean
 }

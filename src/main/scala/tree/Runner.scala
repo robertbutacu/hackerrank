@@ -33,7 +33,9 @@ object Runner {
     //println("Height: " + tree.height)//should be 2
     //println("Searching for 5: " + tree.DFS(6) )// should be 1 2 5
     //println("Common ancestor: " + tree.commonAncestor(4, 9))
-    println("BFS: " + tree.BFS())//should be 1 2 3 4 5 6 7
+    //println("BFS: " + tree.BFS())//should be 1 2 3 4 5 6 7
+    //println("Adding 1 to elements: " + tree.map(e => e + 1))
+    println("Forall > 1: " + tree.forAll(_ > 0))
   }
 
   def runDecoding(): Unit = {
