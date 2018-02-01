@@ -18,7 +18,7 @@ case class TreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends Tree[A
 
   override def BFS(): List[A] = ???
 
-  override def DFS(): List[A] = ???
+  override def DFS(): List[A] = this.left.BFS() ::: List(this.value) ::: this.right.BFS()
 
   override def prune(subtree: Tree[A]): Tree[A] = ???
 

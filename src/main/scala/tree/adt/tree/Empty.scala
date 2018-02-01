@@ -20,9 +20,9 @@ case class Empty[A]() extends Tree[A] {
 
   override def DFS(): List[A] = List.empty
 
-  override def prune(subtree: Tree[A]): Tree[A] = ???
+  override def prune(subtree: Tree[A]): Tree[A] = this
 
-  override def commonAncestor(el1: A, el2: A): Option[A] = ???
+  override def commonAncestor(el1: A, el2: A): Option[A] = None
 
   override def add(el: A) = TreeBranch(el, Empty(), Empty())
 
