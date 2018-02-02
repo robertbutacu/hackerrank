@@ -15,7 +15,7 @@ Variation: do the same for a negative X.
 
 object PowerSum {
 
-  protected[PowerSum] case class Combinations(total: Int = 0, variations: List[List[Int]] = List.empty) {
+  case class Combinations(total: Int = 0, variations: List[List[Int]] = List.empty) {
     def add(other: Combinations): Combinations = {
       Combinations(this.total + other.total,
         this.variations ::: other.variations)
@@ -79,7 +79,7 @@ object PowerSum {
     }
 
     (negative to positive)
-      .map{e => go(X, e, List.empty, List.empty)}
+      .map { e => go(X, e, List.empty, List.empty) }
       .foldRight(Combinations())((acc, total) => acc.map(total.add).getOrElse(Combinations()))
   }
 }
