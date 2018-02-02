@@ -31,5 +31,7 @@ trait Tree[A >: Comparable[A]] {
 
   def swap(k: Int): Tree[A]
 
+  def swaps(k: List[Int]): Tree[A]
+
   def forAll(f: A => Boolean): Boolean
 }
