@@ -26,6 +26,9 @@ object Runner {
          PostOrder: 4 5 2 6 7 3 1
          InOrder: 4 2 5 1 6 3 7
      */
+    val toPrune: Tree[Int] = TreeBranch(2,
+      TreeBranch(4, Empty(), Empty()),
+      TreeBranch(5, Empty(), Empty()))
 
     //println("Inorder: " + tree.inOrder)
     //println("Postorder: " + tree.postOrder)
@@ -35,7 +38,8 @@ object Runner {
     //println("Common ancestor: " + tree.commonAncestor(4, 9))
     //println("BFS: " + tree.BFS())//should be 1 2 3 4 5 6 7
     //println("Adding 1 to elements: " + tree.map(e => e + 1))
-    println("Forall > 1: " + tree.forAll(_ > 0))
+    //println("Forall > 1: " + tree.forAll(_ > 0))
+    println("Prunning: " + tree.prune(toPrune))
   }
 
   def runDecoding(): Unit = {

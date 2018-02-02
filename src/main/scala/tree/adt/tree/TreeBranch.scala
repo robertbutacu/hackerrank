@@ -32,7 +32,10 @@ case class TreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends Tree[A
 
   override def DFS(): List[A] = this.left.BFS() ::: List(this.value) ::: this.right.BFS()
 
-  override def prune(subtree: Tree[A]): Tree[A] = ???
+  override def prune(subtree: Tree[A]): Tree[A] = {
+    if(subtree == this) Empty()
+    else                TreeBranch(this.value, this.left.prune(subtree), this.right.prune(subtree))
+  }
 
   override def commonAncestor(el1: A, el2: A): Option[A] = {
     for {
