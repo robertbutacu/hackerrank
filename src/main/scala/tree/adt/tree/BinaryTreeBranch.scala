@@ -50,7 +50,24 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
     *
     * @return
     */
-  override def leveling: List[A] = List.empty
+  override def leveling: List[A] = {
+    @tailrec
+    def go(curr: Tree[A], queue: List[Tree[A]], result: List[A]): List[A] = {
+      val updatedQueue = (queue ::: List(curr.left) ::: List(curr.right))
+        .filterNot(_ == BinaryTreeEmpty())
+      val updatedResult = result ::: (curr match {
+        case BinaryTreeBranch(v, _, _) => List(v)
+        case _ => Nil
+      })
+
+      if (updatedQueue.isEmpty)
+        updatedResult
+      else
+        go(updatedQueue.head, updatedQueue.tail, updatedResult)
+    }
+
+    go(this, List.empty, List.empty)
+  }
 
   /**
     *         1
@@ -79,17 +96,8 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
     * => 1 2 3 4 5 6 7
     * @return the breadth first search of the tree
     */
-  override def BFS(): List[A] = {
-    @tailrec
-    def go(curr: Tree[A], queue: List[Tree[A]], bfs: List[A]): List[A] = {
-      go(queue.head, queue.tail ::: List(curr.left, curr.right), curr match {
-        case BinaryTreeEmpty() => bfs
-        case BinaryTreeBranch(v, _, _) => bfs :+ v
-      })
-    }
-
-    go(this, List.empty, List.empty)
-  }
+  override def BFS(): List[A] =
+    this.leveling
 
 
   /**

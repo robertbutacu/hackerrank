@@ -40,7 +40,8 @@ object Runner {
     //println("Adding 1 to elements: " + tree.map(e => e + 1))
     //println("Forall > 1: " + tree.forAll(_ > 0))
     //println("Prunning: " + tree.prune(toPrune))
-    println("Swaps: " + tree.swaps(List(0, 1, 2)))
+    //println("Swaps: " + tree.swaps(List(0, 1, 2)))
+    println("Leveling: " + tree.leveling) //should be 1 2 3 4 5 6 7
   }
 
   def runDecoding(): Unit = {
