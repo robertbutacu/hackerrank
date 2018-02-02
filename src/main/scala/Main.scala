@@ -1,5 +1,5 @@
 import recursion.PowerSum
-import tree.Runner
+import Runners.Runner
 
 object Main extends App {
   //Runner.runDecoding()

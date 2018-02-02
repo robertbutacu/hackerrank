@@ -1,4 +1,4 @@
-package tree.adt.tree
+package adt.tree
 
 import scala.annotation.tailrec
 

@@ -1,8 +1,8 @@
-package tree
+package Runners
 
-import tree.adt.HuffmanEncodingTree.{Branch, HuffmanEncodingTree, Leaf}
-import tree.adt.tree.{BinaryTreeEmpty, Tree, BinaryTreeBranch}
-import tree.huffman.coding.{MessageDecoder, One, Zero}
+import adt.HuffmanEncodingTree.{Branch, HuffmanEncodingTree, Leaf}
+import adt.tree.{BinaryTreeBranch, BinaryTreeEmpty, Tree}
+import coding.huffman.{MessageDecoder, One, Zero}
 
 object Runner {
   def runTraversals(): Unit = {

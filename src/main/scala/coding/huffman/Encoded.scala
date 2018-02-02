@@ -1,4 +1,4 @@
-package tree.huffman.coding
+package coding.huffman
 
 trait Encoded
 
