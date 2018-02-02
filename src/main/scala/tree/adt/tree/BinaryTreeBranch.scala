@@ -91,6 +91,7 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
     go(this, List.empty, List.empty)
   }
 
+
   /**
     *         1
     *
@@ -103,6 +104,7 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
     */
   override def DFS(): List[A] = this.left.BFS() ::: List(this.value) ::: this.right.BFS()
 
+
   /**
     * @param subtree => the subtree that is to be removed from the current tree
     * @return a new tree without the subtree ( if it exists )
@@ -112,6 +114,7 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
     else BinaryTreeBranch(this.value,
       left.prune(subtree),
       right.prune(subtree))
+
 
   /**
     * The algorithm does a breadth first search for e1 and e2.
@@ -134,11 +137,13 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
       ._1
   }
 
+
   /**
     * @param el - to be added
     * @return the new tree with the element added
     */
   override def add(el: A): Tree[A] = ???
+
 
   /**
     * The algorithm is a variation of BFS() which stops at first encountering with el.
@@ -167,6 +172,7 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
     go(this, List.empty)
   }
 
+
   /**
     * @param f => function to be applied over all values of the map
     * @tparam B => the new type of the Tree
@@ -174,12 +180,14 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
     */
   override def map[B](f: A => B) = BinaryTreeBranch(f(this.value), left.map(f), right.map(f))
 
+
   /**
     * @param f => the function returning a boolean which will be applied over all values
     * @return => true if all values of the tree are compliant with f, false otherwise
     */
   override def forAll(f: A => Boolean): Boolean =
     f(value) && left.forAll(f) && right.forAll(f)
+
 
   /**
     * @param k => the level where all the subtree will swap its nodes
@@ -189,6 +197,7 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
     if (k == 0) BinaryTreeBranch(value, right, left)
     else BinaryTreeBranch(value, left.swap(k - 1), right.swap(k - 1))
   }
+
 
   /**
     * @param ks => perform k swaps on current Tree
