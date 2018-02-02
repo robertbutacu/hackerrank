@@ -39,7 +39,8 @@ object Runner {
     //println("BFS: " + tree.BFS())//should be 1 2 3 4 5 6 7
     //println("Adding 1 to elements: " + tree.map(e => e + 1))
     //println("Forall > 1: " + tree.forAll(_ > 0))
-    println("Prunning: " + tree.prune(toPrune))
+    //println("Prunning: " + tree.prune(toPrune))
+    println("Swaps: " + tree.swaps(List(0, 1, 2)))
   }
 
   def runDecoding(): Unit = {

@@ -81,4 +81,6 @@ case class BinaryTreeEmpty[A]() extends Tree[A] {
   override def forAll(f: A => Boolean): Boolean = true
 
   override def swap(k: Int): Tree[A] = this
+
+  override def swaps(k: List[Int]): Tree[A] = this
 }

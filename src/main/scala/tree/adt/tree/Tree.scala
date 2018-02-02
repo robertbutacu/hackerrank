@@ -1,6 +1,6 @@
 package tree.adt.tree
 
-trait Tree[A >: Comparable[A]] {
+trait Tree[A] {
   def left: Tree[A]
 
   def right: Tree[A]
