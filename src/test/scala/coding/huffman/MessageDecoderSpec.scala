@@ -34,4 +34,7 @@ class MessageDecoderSpec extends FlatSpec {
     )) === None)
   }
 
+  "An empty encoded message " should "return None " in {
+    assert(MessageDecoder(huffmanTree).decode(List.empty) === None)
+  }
 }
