@@ -1,19 +1,19 @@
 package tree
 
 import tree.adt.HuffmanEncodingTree.{Branch, HuffmanEncodingTree, Leaf}
-import tree.adt.tree.{Empty, Tree, TreeBranch}
+import tree.adt.tree.{BinaryTreeEmpty, Tree, BinaryTreeBranch}
 import tree.huffman.coding.{MessageDecoder, One, Zero}
 
 object Runner {
   def runTraversals(): Unit = {
     val tree: Tree[Int] =
-      TreeBranch(1,
-        TreeBranch(2,
-          TreeBranch(4, Empty(), Empty()),
-          TreeBranch(5, Empty(), Empty())),
-        TreeBranch(3,
-          TreeBranch(6, Empty(), Empty()),
-          TreeBranch(7, Empty(), Empty()))
+      BinaryTreeBranch(1,
+        BinaryTreeBranch(2,
+          BinaryTreeBranch(4, BinaryTreeEmpty(), BinaryTreeEmpty()),
+          BinaryTreeBranch(5, BinaryTreeEmpty(), BinaryTreeEmpty())),
+        BinaryTreeBranch(3,
+          BinaryTreeBranch(6, BinaryTreeEmpty(), BinaryTreeEmpty()),
+          BinaryTreeBranch(7, BinaryTreeEmpty(), BinaryTreeEmpty()))
       )
     /*
                   1
@@ -26,9 +26,9 @@ object Runner {
          PostOrder: 4 5 2 6 7 3 1
          InOrder: 4 2 5 1 6 3 7
      */
-    val toPrune: Tree[Int] = TreeBranch(2,
-      TreeBranch(4, Empty(), Empty()),
-      TreeBranch(5, Empty(), Empty()))
+    val toPrune: Tree[Int] = BinaryTreeBranch(2,
+      BinaryTreeBranch(4, BinaryTreeEmpty(), BinaryTreeEmpty()),
+      BinaryTreeBranch(5, BinaryTreeEmpty(), BinaryTreeEmpty()))
 
     //println("Inorder: " + tree.inOrder)
     //println("Postorder: " + tree.postOrder)

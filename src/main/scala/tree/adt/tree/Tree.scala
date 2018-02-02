@@ -1,6 +1,6 @@
 package tree.adt.tree
 
-trait Tree[A] {
+trait Tree[A >: Comparable[A]] {
   def left: Tree[A]
 
   def right: Tree[A]
@@ -28,6 +28,8 @@ trait Tree[A] {
   def add(el: A): Tree[A]
 
   def map[B](f: A => B): Tree[B]
+
+  def swap(k: Int): Tree[A]
 
   def forAll(f: A => Boolean): Boolean
 }
