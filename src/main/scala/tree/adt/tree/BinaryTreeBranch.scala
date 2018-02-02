@@ -50,7 +50,6 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
   override def leveling: List[A] = List.empty
 
   /**
-    *
     *           1
     *
     *     2            3
@@ -102,7 +101,6 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
   override def DFS(): List[A] = this.left.BFS() ::: List(this.value) ::: this.right.BFS()
 
   /**
-    *
     * @param subtree => the subtree that is to be removed from the current tree
     * @return a new tree without the subtree ( if it exists )
     */
@@ -134,7 +132,6 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
   }
 
   /**
-    *
     * @param el - to be added
     * @return the new tree with the element added
     */
@@ -168,10 +165,9 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
   }
 
   /**
-    *
     * @param f => function to be applied over all values of the map
     * @tparam B => the new type of the Tree
-    * @return
+    * @return => a new tree with f functions applied over all values of the current tree
     */
   override def map[B](f: A => B) = BinaryTreeBranch(f(this.value), left.map(f), right.map(f))
 
@@ -191,10 +187,9 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
   }
 
   /**
-    *
-    * @param k => perform k swaps on current Tree
-    * @return => the transform tree on all k levels
+    * @param ks => perform k swaps on current Tree
+    * @return => the transformed tree on all k levels
     */
-  override def swaps(k: List[Int]): Tree[A] =
-    k.foldRight[Tree[A]](this){(curr, res) => res.swap(curr)}
+  override def swaps(ks: List[Int]): Tree[A] =
+    ks.foldRight[Tree[A]](this){(curr, res) => res.swap(curr)}
 }

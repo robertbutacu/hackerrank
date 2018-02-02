@@ -7,7 +7,6 @@ case class BinaryTreeEmpty[A]() extends Tree[A] {
   override def right: Tree[A] = this
 
   /**
-    *
     *        1
     *
     *   2            3
@@ -21,8 +20,6 @@ case class BinaryTreeEmpty[A]() extends Tree[A] {
   override def preOrder: List[Nothing] = List.empty
 
   /**
-    *
-    *
     *         1
     *
     *     2            3
@@ -35,8 +32,6 @@ case class BinaryTreeEmpty[A]() extends Tree[A] {
     */
   override def inOrder: List[Nothing] = List.empty
   /**
-    *
-    *
     *          1
     *
     *     2            3
@@ -66,7 +61,6 @@ case class BinaryTreeEmpty[A]() extends Tree[A] {
   override def DFS(el: A): Option[List[A]] = None
 
   /**
-    *
     * @param f => a function used to transform all the values of the Tree
     * @tparam B => the type of the future-to-be value
     * @return an empty Tree since it has no elements
@@ -74,13 +68,20 @@ case class BinaryTreeEmpty[A]() extends Tree[A] {
   override def map[B](f: A => B): Tree[B] = BinaryTreeEmpty[B]()
 
   /**
-    *
     * @param f => a boolean function which will be applied over all values
     * @return true, since anything else will mess up the logic
     */
   override def forAll(f: A => Boolean): Boolean = true
 
+  /**
+    * @param k => the level where the left and right trees will be swapped
+    * @return => the tree on k level swapped . However, empty tree => empty result.
+    */
   override def swap(k: Int): Tree[A] = this
 
-  override def swaps(k: List[Int]): Tree[A] = this
+  /**
+    * @param ks => a list of k levels where nodes will need to be swapped
+    * @return => empty tree, empty result
+    */
+  override def swaps(ks: List[Int]): Tree[A] = this
 }
