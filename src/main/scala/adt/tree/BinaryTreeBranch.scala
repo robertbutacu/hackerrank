@@ -15,7 +15,8 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
     *
     * @return the preOrder traversal of the tree
     */
-  override def preOrder: List[A] = List(this.value) ::: this.left.preOrder ::: this.right.preOrder
+  override def preOrder: List[A] =
+    List(this.value) ::: this.left.preOrder ::: this.right.preOrder
 
   /**
     *
@@ -29,7 +30,8 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
     *
     * @return the inOrder traversal of the tree
     */
-  override def inOrder: List[A] = this.left.inOrder ::: List(this.value) ::: this.right.inOrder
+  override def inOrder: List[A] =
+    this.left.inOrder ::: List(this.value) ::: this.right.inOrder
 
   /**
     *
@@ -43,7 +45,8 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
     *
     * @return the postOrder traversal of the Tree
     */
-  override def postOrder: List[A] = this.left.postOrder ::: this.right.postOrder ::: List(this.value)
+  override def postOrder: List[A] =
+    this.left.postOrder ::: this.right.postOrder ::: List(this.value)
 
   /**
     *
@@ -99,7 +102,6 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
   override def BFS(): List[A] =
     this.leveling
 
-
   /**
     *         1
     *
@@ -111,7 +113,6 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
     * @return the depth first search ordering of the tree
     */
   override def DFS(): List[A] = List(this.value) ::: this.left.DFS() ::: this.right.DFS()
-
 
   /**
     * @param subtree => the subtree that is to be removed from the current tree
