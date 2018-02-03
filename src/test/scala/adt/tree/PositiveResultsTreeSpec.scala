@@ -55,18 +55,83 @@ class PositiveResultsTreeSpec extends FlatSpec {
     assert(tree.commonAncestor(5, 6) === Some(1))
   }
 
-  //println("BFS: " + tree.BFS())//should be 1 2 3 4 5 6 7
-  //println("Adding 1 to elements: " + tree.map(e => e + 1))
-  //println("Forall > 1: " + tree.forAll(_ > 0))
-  //println("Prunning: " + tree.prune(toPrune))
-  //println("Swaps: " + tree.swaps(List(0, 1, 2)))
-  //println("Leveling: " + tree.leveling) //should be 1 2 3 4 5 6 7
-
-  /*"Postorder traversal " should " return 4 5 2 6 7 3 1" in {
-    assert(tree.postOrder === List(4, 5, 2, 6, 7, 3, 1))
+  "BFS traversal " should "return the Breadth First Search of the tree" in {
+    assert(tree.BFS() === List(1, 2, 3, 4, 5, 6, 7))
   }
 
-  "Postorder traversal " should " return 4 5 2 6 7 3 1" in {
-    assert(tree.postOrder === List(4, 5, 2, 6, 7, 3, 1))
-  }*/
+  "Mapping over a tree" should "return that tree mapped depending on the function " in {
+    assert(tree.map(_ + 1) === BinaryTreeBranch(2,
+      BinaryTreeBranch(3,
+        BinaryTreeBranch(5, BinaryTreeEmpty(), BinaryTreeEmpty()),
+        BinaryTreeBranch(6, BinaryTreeEmpty(), BinaryTreeEmpty())),
+      BinaryTreeBranch(4,
+        BinaryTreeBranch(7, BinaryTreeEmpty(), BinaryTreeEmpty()),
+        BinaryTreeBranch(8, BinaryTreeEmpty(), BinaryTreeEmpty()))
+    ))
+
+    assert(tree.map(_.toString()) === BinaryTreeBranch("1",
+      BinaryTreeBranch("2",
+        BinaryTreeBranch("4", BinaryTreeEmpty(), BinaryTreeEmpty()),
+        BinaryTreeBranch("5", BinaryTreeEmpty(), BinaryTreeEmpty())),
+      BinaryTreeBranch("3",
+        BinaryTreeBranch("6", BinaryTreeEmpty(), BinaryTreeEmpty()),
+        BinaryTreeBranch("7", BinaryTreeEmpty(), BinaryTreeEmpty()))
+    ))
+  }
+
+  "Applying forAll over a valid tree" should "return the Boolean value " +
+    "enforced by that function" in {
+    assert(tree.forAll(_ > 0) === true)
+    assert(tree.forAll(_ < 100) === true)
+    assert(tree.forAll(_ % 2 == 0) === false)
+  }
+
+  "Leveling traversal " should "return the Breadth First Search of the tree" in {
+    assert(tree.leveling === List(1, 2, 3, 4, 5, 6, 7))
+  }
+
+  "Swapping on a level k" should "return a tree with all nodes swapped on level k" in {
+    assert(tree.swap(1) === BinaryTreeBranch(1,
+      BinaryTreeBranch(3,
+        BinaryTreeBranch(6, BinaryTreeEmpty(), BinaryTreeEmpty()),
+        BinaryTreeBranch(7, BinaryTreeEmpty(), BinaryTreeEmpty())),
+      BinaryTreeBranch(2,
+        BinaryTreeBranch(4, BinaryTreeEmpty(), BinaryTreeEmpty()),
+        BinaryTreeBranch(5, BinaryTreeEmpty(), BinaryTreeEmpty()))))
+
+    assert(tree.swap(2) === BinaryTreeBranch(1,
+      BinaryTreeBranch(2,
+        BinaryTreeBranch(5, BinaryTreeEmpty(), BinaryTreeEmpty()),
+        BinaryTreeBranch(4, BinaryTreeEmpty(), BinaryTreeEmpty())),
+      BinaryTreeBranch(3,
+        BinaryTreeBranch(7, BinaryTreeEmpty(), BinaryTreeEmpty()),
+        BinaryTreeBranch(6, BinaryTreeEmpty(), BinaryTreeEmpty()))
+    ))
+  }
+
+  "Swapping j times on level ks" should "return the tree after swapping j times on ks levels" in {
+    assert(tree.swaps(List(1, 2)) === BinaryTreeBranch(1,
+      BinaryTreeBranch(3,
+        BinaryTreeBranch(7, BinaryTreeEmpty(), BinaryTreeEmpty()),
+        BinaryTreeBranch(6, BinaryTreeEmpty(), BinaryTreeEmpty())),
+      BinaryTreeBranch(2,
+        BinaryTreeBranch(5, BinaryTreeEmpty(), BinaryTreeEmpty()),
+        BinaryTreeBranch(4, BinaryTreeEmpty(), BinaryTreeEmpty()))
+    ))
+  }
+
+  "Swapping on a non-existent k level " should "return the same tree" in {
+    assert(tree.swap(100) === tree)
+  }
+
+  "Prunning a tree t by a tree t' " should "return the tree t without that specific t'" in {
+    assert(tree.prune(toPrune) === BinaryTreeBranch(1,
+      BinaryTreeEmpty(),
+      BinaryTreeBranch(3,
+        BinaryTreeBranch(6, BinaryTreeEmpty(), BinaryTreeEmpty()),
+        BinaryTreeBranch(7, BinaryTreeEmpty(), BinaryTreeEmpty()))
+    ))
+
+    assert(tree.prune(tree) === BinaryTreeEmpty())
+  }
 }

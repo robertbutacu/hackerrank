@@ -202,7 +202,9 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
     * @return => a new Tree where all nodes on k level are swapped
     */
   override def swap(k: Int): Tree[A] = {
-    if (k == 0) BinaryTreeBranch(value, right, left)
+    require ( k > 0)
+
+    if (k == 1) BinaryTreeBranch(value, right, left)
     else BinaryTreeBranch(value, left.swap(k - 1), right.swap(k - 1))
   }
 

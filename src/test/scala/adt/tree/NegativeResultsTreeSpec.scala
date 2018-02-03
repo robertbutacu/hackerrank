@@ -61,4 +61,30 @@ class NegativeResultsTreeSpec extends FlatSpec {
     assert(tree.commonAncestor(5, 9) === None)
   }
 
+  "BFS traversal " should "return an empty list on an empty tree " in {
+    assert(BinaryTreeEmpty().BFS() === List.empty)
+  }
+
+  "Mapping over an empty tree " should "still return an empty tree" in {
+    assert(BinaryTreeEmpty[Int]().map(_ + 100) === BinaryTreeEmpty())
+  }
+
+  "Applying forAll over an empty tree" should "return true " in {
+    assert(BinaryTreeEmpty[Int]().forAll(_ > 0) === true)
+    assert(BinaryTreeEmpty[Int]().forAll(_ < 100) === true)
+    assert(BinaryTreeEmpty[Int]().forAll(_ % 2 == 0) === true)
+  }
+
+  "Leveling traversal " should "return an empty list in an empty tree" in {
+    assert(BinaryTreeEmpty().leveling === List.empty)
+  }
+
+  "Swapping on level k" should "return an empty tree on an empty tree" in {
+    assert(BinaryTreeEmpty[Int]().swap(100) === BinaryTreeEmpty[Int]())
+  }
+
+  "Pruning a tree on an empty tree" should "return the same empty tree" in {
+    assert(BinaryTreeEmpty[Int]().swap(10) === BinaryTreeEmpty[Int]())
+  }
+
 }
