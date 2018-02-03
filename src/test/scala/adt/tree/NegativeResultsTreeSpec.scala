@@ -87,4 +87,19 @@ class NegativeResultsTreeSpec extends FlatSpec {
     assert(BinaryTreeEmpty[Int]().swap(10) === BinaryTreeEmpty[Int]())
   }
 
+  "Common ancestor of 2 elements in an empty tree" should "be an none" in {
+    assert(BinaryTreeEmpty[Int]().commonAncestor(1, 2) === None)
+  }
+
+  "DFS " should "return an empty list in an empty tree" in {
+    assert(BinaryTreeEmpty[Int]().DFS() === List.empty)
+  }
+
+  "DFS for an element" should "return none in an empty tree" in {
+    assert(BinaryTreeEmpty[Int]().DFS(5) === None)
+  }
+
+  "K swaps " should "return an empty tree" in {
+    assert(BinaryTreeEmpty[Int]().swaps(List(1, 2, 3)) === BinaryTreeEmpty[Int]())
+  }
 }

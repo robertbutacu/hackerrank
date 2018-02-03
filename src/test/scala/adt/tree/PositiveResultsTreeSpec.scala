@@ -59,6 +59,10 @@ class PositiveResultsTreeSpec extends FlatSpec {
     assert(tree.BFS() === List(1, 2, 3, 4, 5, 6, 7))
   }
 
+  "DFS traversal " should "return the depth first search of the tree" in {
+    assert(tree.DFS() === List(1, 2, 4, 5, 3, 6, 7))
+  }
+
   "Mapping over a tree" should "return that tree mapped depending on the function " in {
     assert(tree.map(_ + 1) === BinaryTreeBranch(2,
       BinaryTreeBranch(3,

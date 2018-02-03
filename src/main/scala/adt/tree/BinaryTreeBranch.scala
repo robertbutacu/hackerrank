@@ -110,7 +110,7 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
     * => 1 2 4 5 3 6 7
     * @return the depth first search ordering of the tree
     */
-  override def DFS(): List[A] = this.left.BFS() ::: List(this.value) ::: this.right.BFS()
+  override def DFS(): List[A] = List(this.value) ::: this.left.DFS() ::: this.right.DFS()
 
 
   /**
