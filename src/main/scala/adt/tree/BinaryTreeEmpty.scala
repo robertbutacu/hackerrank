@@ -86,7 +86,7 @@ case class BinaryTreeEmpty[A: Ordering]() extends Tree[A] {
 
   override def find(f: A => Boolean): Option[A] = None
 
-  override def filter(f: A => Boolean): List[A] = ???
+  override def filter(f: A => Boolean): List[A] = List.empty[A]
 
-  override def filterNot(f: A => Boolean): List[A] = ???
+  override def filterNot(f: A => Boolean): List[A] = List.empty[A]
 }

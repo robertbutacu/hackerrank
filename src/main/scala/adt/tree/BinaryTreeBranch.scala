@@ -227,15 +227,24 @@ case class BinaryTreeBranch[A: Ordering](value: A, left: Tree[A], right: Tree[A]
 
 
   /**
-    *  Recursively go deeper into the BST to find the element, if it exists
+    * Recursively go deeper into the BST to find the element, if it exists
+    *
     * @param f - a function returning a boolean for which an element will need to be found
     * @return an element fulfilling the according function
     */
   override def find(f: A => Boolean): Option[A] =
-    if(f(this.value)) Some(this.value)
+    if (f(this.value)) Some(this.value)
     else left.find(f).orElse(right.find(f))
 
-  override def filter(f: A => Boolean): List[A] = ???
+  override def filter(f: A => Boolean): List[A] =
+    if (f(value))
+      List(value) ::: left.filter(f) ::: right.filter(f)
+    else
+      left.filter(f) ::: right.filter(f)
 
-  override def filterNot(f: A => Boolean): List[A] = ???
+  override def filterNot(f: A => Boolean): List[A] =
+    if(!f(value))
+      List(value) ::: left.filterNot(f) ::: right.filterNot(f)
+    else
+      left.filterNot(f) ::: right.filterNot(f)
 }
