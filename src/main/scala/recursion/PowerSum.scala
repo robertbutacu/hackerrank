@@ -52,6 +52,9 @@ object PowerSum {
       .foldRight(Combinations())((acc, total) => acc.map(total.add).getOrElse(Combinations()))
   }
 
+
+
+  //TODO fix this
   def compute(X: Int, N: Int): Combinations = {
 
     def negative = Math.min(-X, X)

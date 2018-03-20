@@ -216,4 +216,8 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
     */
   override def swaps(ks: List[Int]): Tree[A] =
     ks.foldRight[Tree[A]](this) { (curr, res) => res.swap(curr) }
+
+  override def find(f: A => Boolean): Option[A] =
+    if(f(this.value)) Some(this.value)
+    else left.find(f).orElse(right.find(f))
 }

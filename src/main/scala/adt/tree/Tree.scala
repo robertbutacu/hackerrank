@@ -34,4 +34,6 @@ trait Tree[A] {
   def swaps(ks: List[Int]): Tree[A]
 
   def forAll(f: A => Boolean): Boolean
+
+  def find(f: A => Boolean): Option[A]
 }

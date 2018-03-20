@@ -17,7 +17,7 @@ case class BinaryTreeEmpty[A]() extends Tree[A] {
     *
     * @return An empty list since it has no elements
     */
-  override def preOrder: List[Nothing] = List.empty
+  override def preOrder: List[A] = List.empty[A]
 
   /**
     *         1
@@ -30,7 +30,7 @@ case class BinaryTreeEmpty[A]() extends Tree[A] {
     *
     * @return An empty list since it has no elements
     */
-  override def inOrder: List[Nothing] = List.empty
+  override def inOrder: List[A] = List.empty[A]
   /**
     *          1
     *
@@ -42,15 +42,15 @@ case class BinaryTreeEmpty[A]() extends Tree[A] {
     *
     * @return An empty list since it has no elements
     */
-  override def postOrder: List[Nothing] = List.empty
+  override def postOrder: List[A] = List.empty[A]
 
-  override def leveling: List[Nothing] = List.empty
+  override def leveling: List[A] = List.empty[A]
 
   override def height: Int = -1
 
-  override def BFS(): List[A] = List.empty
+  override def BFS(): List[A] = List.empty[A]
 
-  override def DFS(): List[A] = List.empty
+  override def DFS(): List[A] = List.empty[A]
 
   override def prune(subtree: Tree[A]): Tree[A] = this
 
@@ -84,4 +84,6 @@ case class BinaryTreeEmpty[A]() extends Tree[A] {
     * @return => empty tree, empty result
     */
   override def swaps(ks: List[Int]): Tree[A] = this
+
+  override def find(f: A => Boolean): Option[A] = None
 }
