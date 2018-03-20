@@ -222,7 +222,7 @@ case class BinaryTreeBranch[A: Ordering](value: A, left: Tree[A], right: Tree[A]
     * @param ks => perform k swaps on current Tree
     * @return => the transformed tree on all k levels
     */
-  override def swaps(ks: List[Int]): Tree[A] =
+  override def swapAll(ks: List[Int]): Tree[A] =
     ks.foldRight[Tree[A]](this) { (curr, res) => res.swap(curr) }
 
 

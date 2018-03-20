@@ -100,6 +100,6 @@ class NegativeResultsTreeSpec extends FlatSpec {
   }
 
   "K swaps " should "return an empty tree" in {
-    assert(BinaryTreeEmpty[Int]().swaps(List(1, 2, 3)) === BinaryTreeEmpty[Int]())
+    assert(BinaryTreeEmpty[Int]().swapAll(List(1, 2, 3)) === BinaryTreeEmpty[Int]())
   }
 }

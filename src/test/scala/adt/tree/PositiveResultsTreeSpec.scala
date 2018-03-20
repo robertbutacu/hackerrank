@@ -115,7 +115,7 @@ class PositiveResultsTreeSpec extends FlatSpec {
   }
 
   "Swapping j times on level ks" should "return the tree after swapping j times on ks levels" in {
-    assert(tree.swaps(List(1, 2)) === BinaryTreeBranch(1,
+    assert(tree.swapAll(List(1, 2)) === BinaryTreeBranch(1,
       BinaryTreeBranch(3,
         BinaryTreeBranch(7, BinaryTreeEmpty(), BinaryTreeEmpty()),
         BinaryTreeBranch(6, BinaryTreeEmpty(), BinaryTreeEmpty())),

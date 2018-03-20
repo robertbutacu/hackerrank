@@ -82,7 +82,7 @@ case class BinaryTreeEmpty[A: Ordering]() extends Tree[A] {
     * @param ks => a list of k levels where nodes will need to be swapped
     * @return => empty tree, empty result
     */
-  override def swaps(ks: List[Int]): Tree[A] = this
+  override def swapAll(ks: List[Int]): Tree[A] = this
 
   override def find(f: A => Boolean): Option[A] = None
 
