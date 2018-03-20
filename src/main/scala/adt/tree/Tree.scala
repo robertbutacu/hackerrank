@@ -40,4 +40,10 @@ trait Tree[A] {
   def filter(f: A => Boolean): List[A]
 
   def filterNot(f: A => Boolean): List[A]
+
+  def merge(tree: Tree[A]): Tree[A]
+
+  def toList: List[A]
+
+  def addAll(elements: List[A]): Tree[A]
 }

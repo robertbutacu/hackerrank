@@ -89,4 +89,16 @@ case class BinaryTreeEmpty[A: Ordering]() extends Tree[A] {
   override def filter(f: A => Boolean): List[A] = List.empty[A]
 
   override def filterNot(f: A => Boolean): List[A] = List.empty[A]
+
+  override def merge(tree: Tree[A]): Tree[A] = tree
+
+  override def toList: List[A] = List.empty[A]
+
+  override def addAll(elements: List[A]): Tree[A] = {
+    def go(tree: Tree[A], elements: List[A]): Tree[A] =
+      elements.foldRight(tree)((curr, acc) => acc.add(curr))
+
+    go(this, elements)
+  }
+
 }

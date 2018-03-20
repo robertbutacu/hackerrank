@@ -247,4 +247,15 @@ case class BinaryTreeBranch[A: Ordering](value: A, left: Tree[A], right: Tree[A]
       List(value) ::: left.filterNot(f) ::: right.filterNot(f)
     else
       left.filterNot(f) ::: right.filterNot(f)
+
+  override def merge(tree: Tree[A]): Tree[A] = ???
+
+  override def toList: List[A] = List(value) ::: left.toList ::: right.toList
+
+  override def addAll(elements: List[A]): Tree[A] = {
+    def go(tree: Tree[A], elements: List[A]): Tree[A] =
+      elements.foldRight(tree)((curr, acc) => acc.add(curr))
+
+    go(this, elements)
+  }
 }
