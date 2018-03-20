@@ -36,4 +36,8 @@ trait Tree[A] {
   def forAll(f: A => Boolean): Boolean
 
   def find(f: A => Boolean): Option[A]
+
+  def filter(f: A => Boolean): List[A]
+
+  def filterNot(f: A => Boolean): List[A]
 }

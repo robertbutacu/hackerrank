@@ -225,7 +225,17 @@ case class BinaryTreeBranch[A: Ordering](value: A, left: Tree[A], right: Tree[A]
   override def swaps(ks: List[Int]): Tree[A] =
     ks.foldRight[Tree[A]](this) { (curr, res) => res.swap(curr) }
 
+
+  /**
+    *  Recursively go deeper into the BST to find the element, if it exists
+    * @param f - a function returning a boolean for which an element will need to be found
+    * @return an element fulfilling the according function
+    */
   override def find(f: A => Boolean): Option[A] =
     if(f(this.value)) Some(this.value)
     else left.find(f).orElse(right.find(f))
+
+  override def filter(f: A => Boolean): List[A] = ???
+
+  override def filterNot(f: A => Boolean): List[A] = ???
 }

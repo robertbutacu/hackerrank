@@ -1,6 +1,5 @@
 package adt.tree
 
-//TODO work with higher kinds instead of this improvisation
 case class BinaryTreeEmpty[A: Ordering]() extends Tree[A] {
   override def left: Tree[A] = this
 
@@ -86,4 +85,8 @@ case class BinaryTreeEmpty[A: Ordering]() extends Tree[A] {
   override def swaps(ks: List[Int]): Tree[A] = this
 
   override def find(f: A => Boolean): Option[A] = None
+
+  override def filter(f: A => Boolean): List[A] = ???
+
+  override def filterNot(f: A => Boolean): List[A] = ???
 }
