@@ -2,7 +2,7 @@ package adt.tree
 
 import scala.annotation.tailrec
 
-case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends Tree[A] {
+case class BinaryTreeBranch[A: Ordering](value: A, left: Tree[A], right: Tree[A]) extends Tree[A] {
   /**
     *
     *         1
@@ -151,7 +151,15 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
     * @param el - to be added
     * @return the new tree with the element added
     */
-  override def add(el: A): Tree[A] = ???
+  override def add(el: A): Tree[A] = {
+    val n = implicitly[Ordering[A]]
+
+    el match {
+      case less if n.lt(el, value) => BinaryTreeBranch(value, left.add(el), right)
+      case equal if n.equiv(el, value) => this
+      case greater if n.gt(el, value) => BinaryTreeBranch(value, left, right.add(el))
+    }
+  }
 
 
   /**
@@ -187,7 +195,7 @@ case class BinaryTreeBranch[A](value: A, left: Tree[A], right: Tree[A]) extends 
     * @tparam B => the new type of the Tree
     * @return => a new tree with f functions applied over all values of the current tree
     */
-  override def map[B](f: A => B) = BinaryTreeBranch(f(this.value), left.map(f), right.map(f))
+  override def map[B: Ordering](f: A => B) = BinaryTreeBranch(f(this.value), left.map(f), right.map(f))
 
 
   /**

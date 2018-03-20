@@ -1,7 +1,7 @@
 package adt.tree
 
 //TODO work with higher kinds instead of this improvisation
-case class BinaryTreeEmpty[A]() extends Tree[A] {
+case class BinaryTreeEmpty[A: Ordering]() extends Tree[A] {
   override def left: Tree[A] = this
 
   override def right: Tree[A] = this
@@ -65,7 +65,7 @@ case class BinaryTreeEmpty[A]() extends Tree[A] {
     * @tparam B => the type of the future-to-be value
     * @return an empty Tree since it has no elements
     */
-  override def map[B](f: A => B): Tree[B] = BinaryTreeEmpty[B]()
+  override def map[B: Ordering](f: A => B): Tree[B] = BinaryTreeEmpty[B]()
 
   /**
     * @param f => a boolean function which will be applied over all values

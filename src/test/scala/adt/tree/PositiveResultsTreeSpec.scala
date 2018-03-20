@@ -1,6 +1,7 @@
 package adt.tree
 
 import org.scalatest.FlatSpec
+import scala.Ordering.Int
 
 class PositiveResultsTreeSpec extends FlatSpec {
   val tree: Tree[Int] =
@@ -66,20 +67,20 @@ class PositiveResultsTreeSpec extends FlatSpec {
   "Mapping over a tree" should "return that tree mapped depending on the function " in {
     assert(tree.map(_ + 1) === BinaryTreeBranch(2,
       BinaryTreeBranch(3,
-        BinaryTreeBranch(5, BinaryTreeEmpty(), BinaryTreeEmpty()),
-        BinaryTreeBranch(6, BinaryTreeEmpty(), BinaryTreeEmpty())),
+        BinaryTreeBranch(5, BinaryTreeEmpty[Int](), BinaryTreeEmpty[Int]()),
+        BinaryTreeBranch(6, BinaryTreeEmpty[Int](), BinaryTreeEmpty[Int]())),
       BinaryTreeBranch(4,
-        BinaryTreeBranch(7, BinaryTreeEmpty(), BinaryTreeEmpty()),
-        BinaryTreeBranch(8, BinaryTreeEmpty(), BinaryTreeEmpty()))
+        BinaryTreeBranch(7, BinaryTreeEmpty[Int](), BinaryTreeEmpty[Int]()),
+        BinaryTreeBranch(8, BinaryTreeEmpty[Int](), BinaryTreeEmpty[Int]()))
     ))
 
     assert(tree.map(_.toString()) === BinaryTreeBranch("1",
       BinaryTreeBranch("2",
-        BinaryTreeBranch("4", BinaryTreeEmpty(), BinaryTreeEmpty()),
-        BinaryTreeBranch("5", BinaryTreeEmpty(), BinaryTreeEmpty())),
+        BinaryTreeBranch("4", BinaryTreeEmpty[String](), BinaryTreeEmpty[String]()),
+        BinaryTreeBranch("5", BinaryTreeEmpty[String](), BinaryTreeEmpty[String]())),
       BinaryTreeBranch("3",
-        BinaryTreeBranch("6", BinaryTreeEmpty(), BinaryTreeEmpty()),
-        BinaryTreeBranch("7", BinaryTreeEmpty(), BinaryTreeEmpty()))
+        BinaryTreeBranch("6", BinaryTreeEmpty[String](), BinaryTreeEmpty[String]()),
+        BinaryTreeBranch("7", BinaryTreeEmpty[String](), BinaryTreeEmpty[String]()))
     ))
   }
 
@@ -137,5 +138,14 @@ class PositiveResultsTreeSpec extends FlatSpec {
     ))
 
     assert(tree.prune(tree) === BinaryTreeEmpty())
+  }
+
+  "Adding elements to a BST" should "return the tree with the added elements" in {
+    assert(new BinaryTreeEmpty[Int].add(1).add(2).add(3) ===
+      BinaryTreeBranch(1,
+        new BinaryTreeEmpty[Int],
+        BinaryTreeBranch(2, new BinaryTreeEmpty[Int], BinaryTreeBranch(3,
+          new BinaryTreeEmpty[Int], new BinaryTreeEmpty[Int]
+        ))))
   }
 }

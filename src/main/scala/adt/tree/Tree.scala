@@ -27,7 +27,7 @@ trait Tree[A] {
 
   def add(el: A): Tree[A]
 
-  def map[B](f: A => B): Tree[B]
+  def map[B: Ordering](f: A => B): Tree[B]
 
   def swap(k: Int): Tree[A]
 
