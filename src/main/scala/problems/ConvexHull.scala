@@ -88,14 +88,4 @@ object ConvexHull extends App {
       }
     }
   }
-
-  /*
-  {{0, 3}, {1, 1}, {2, 2}, {4, 4},
-                      {0, 0}, {1, 2}, {3, 1}, {3, 3}}
-   */
-
-  val points: Either[String, NonEmptyList[Point]] = refineV[NonEmpty](List(Point(1.0, 1.0), Point(2.0, 5.0), Point(3.0, 3.0), Point(5.0, 3.0), Point(3.0, 2.0),
-    Point(2.0, 2.0)))
-
-  println(points.flatMap(l => grahamScanAlgorithm.getHull(l)))
 }
