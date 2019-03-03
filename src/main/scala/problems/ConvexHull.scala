@@ -1,8 +1,9 @@
 package problems
 
-import eu.timepit.refined.api.Refined
-import eu.timepit.refined.collection.NonEmpty
 import eu.timepit.refined._
+import eu.timepit.refined.api.Refined
+import eu.timepit.refined.auto._
+import eu.timepit.refined.collection._
 
 import scala.annotation.tailrec
 
@@ -38,7 +39,7 @@ object ConvexHull extends App {
 
       val lowestYPoint: Point = pointsList.minBy(_.Y)
 
-      def sortPoints(): List[Point] = pointsList.filter(_ == lowestYPoint).sortBy { p =>
+      def sortPoints(): List[Point] = pointsList.filterNot(_ == lowestYPoint).sortBy { p =>
         val deltaY = p.Y - lowestYPoint.Y
         val deltaX = p.X - lowestYPoint.X
         Math.atan(deltaY / deltaX) * 180 / Math.PI
@@ -46,7 +47,7 @@ object ConvexHull extends App {
 
       def crossProduct(p1: Point, p2: Point, p3: Point): Turn = {
         // (x2 - x1)(y3 - y1) - (y2 - y1)(x3 - x1)
-        (p2.X - p1.X) * (p3.Y - p1.Y) - (p2.Y - p1.Y)(p3.X - p1.X) match {
+        (p2.X - p1.X) * (p3.Y - p1.Y) - (p2.Y - p1.Y) * (p3.X - p1.X) match {
           case 0.0                              => Turn.Collinear
           case lessThan0 if lessThan0 < 0       => Turn.Left(lessThan0)
           case greaterThan0 if greaterThan0 > 0 => Turn.Right(greaterThan0)
@@ -56,32 +57,45 @@ object ConvexHull extends App {
       @tailrec
       def go(pointsLeft: List[Point], convexHull: List[Point]): List[Point] = {
         pointsLeft.length match {
-          case 0                => convexHull
-          case (_: Point) ::: _ =>
+          case 0 => convexHull
+          case _ =>
             val (p2, p1, p0) = (pointsLeft.head, convexHull.head, convexHull.tail.head)
 
             crossProduct(p2, p1, p0) match {
               case Turn.Right(v)  =>
-                println(s"[LOG] Rejecting $p1 with Right Turn cross product")
+                println(s"[LOG] Rejecting $p1 with Right Turn cross product. Current convex hull: $convexHull")
                 go(pointsLeft, convexHull.tail)
               case Turn.Left(v)   =>
-                println(s"[LOG] Accepting $p1 with Left Turn cross product")
-                go(pointsLeft.tail, convexHull :+ pointsLeft.head)
+                println(s"[LOG] Accepting $p1 with Left Turn cross product. Current convex hull: $convexHull")
+                go(pointsLeft.tail, convexHull.+:(pointsLeft.head))
               case Turn.Collinear =>
-                println(s"[LOG] Accepting $p1 with Collinear cross product")
-                go(pointsLeft.tail, convexHull :+ pointsLeft.head)
+                println(s"[LOG] Accepting $p1 with Collinear cross product. Current convex hull: $convexHull")
+                go(pointsLeft.tail, convexHull.+:(pointsLeft.head))
             }
         }
       }
 
       val remainingPoints = sortPoints()
-      if(remainingPoints.length < 3) Right(points)
+      if(remainingPoints.length < 3) {
+        println("[LOG] Length is not at least 3 - returning initial list")
+        Right(points)
+      }
       else {
-        val convexHull = List(remainingPoints.tail.head, remainingPoints.head, lowestYPoint)
-        val remaining = remainingPoints.drop(2)
+        val convexHull = List(remainingPoints.head, lowestYPoint)
+        val remaining = remainingPoints.drop(1)
 
         refineV[NonEmpty](go(remaining, convexHull)).left.map(_ => InsufficientPoints)
       }
     }
   }
+
+  /*
+  {{0, 3}, {1, 1}, {2, 2}, {4, 4},
+                      {0, 0}, {1, 2}, {3, 1}, {3, 3}}
+   */
+
+  val points: Either[String, NonEmptyList[Point]] = refineV[NonEmpty](List(Point(1.0, 1.0), Point(2.0, 5.0), Point(3.0, 3.0), Point(5.0, 3.0), Point(3.0, 2.0),
+    Point(2.0, 2.0)))
+
+  println(points.flatMap(l => grahamScanAlgorithm.getHull(l)))
 }

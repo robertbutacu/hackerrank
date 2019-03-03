@@ -6,7 +6,7 @@ import adt.tree.operations.TreeLookup
 import scala.annotation.tailrec
 
 object BranchLookup {
-  implicit class BranchLookup[A](tree: BinaryTreeBranch[A]) extends TreeLookup[A]{
+  implicit class BranchLookup[A: Ordering](tree: BinaryTreeBranch[A]) extends TreeLookup[A]{
     /**
       *
       *         1

@@ -5,7 +5,7 @@ import adt.tree.{BinaryTreeBranch, BinaryTreeEmpty, Tree}
 
 object LeafModifiers {
 
-  implicit class LeafModifiers[A](tree: BinaryTreeEmpty[A]) extends TreeModifiers[A] {
+  implicit class LeafModifiers[A: Ordering](tree: BinaryTreeEmpty[A]) extends TreeModifiers[A] {
 
     override def prune(subtree: Tree[A]): Tree[A] = tree
 
