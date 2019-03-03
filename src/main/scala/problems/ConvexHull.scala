@@ -63,7 +63,7 @@ object ConvexHull extends App {
             crossProduct(p2, p1, p0) match {
               case Turn.Right(v)  =>
                 println(s"[LOG] Rejecting $p1 with Right Turn cross product")
-                go(pointsLeft.tail, convexHull.tail :+ pointsLeft.head)
+                go(pointsLeft, convexHull.tail)
               case Turn.Left(v)   =>
                 println(s"[LOG] Accepting $p1 with Left Turn cross product")
                 go(pointsLeft.tail, convexHull :+ pointsLeft.head)
