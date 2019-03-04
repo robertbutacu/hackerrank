@@ -64,8 +64,6 @@ object ConvexHull extends App {
 
   implicit def grahamScanAlgorithm[P](implicit pointAlgebra: PointAlgebra[P]): ConvexHullAlgorithm[P] = new ConvexHullAlgorithm[P] {
     override def getHull(points: NonEmptyList[P]): Either[Error, NonEmptyList[P]]= {
-      val pointsList = points.value
-
       @tailrec
       def go(pointsLeft: List[P], convexHull: List[P]): List[P] = {
         pointsLeft.length match {
