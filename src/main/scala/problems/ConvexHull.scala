@@ -28,24 +28,23 @@ object ConvexHull extends App {
   case object InsufficientPoints extends Error
   case object NoPoints           extends Error
 
-
-  trait ConvexHullAlgorithm {
-    def getHull(points: NonEmptyList[Point]): Either[Error, NonEmptyList[Point]]
+  trait PointAlgebra[P] {
+    def lowestPoint(points: List[P]): P
+    def sortPoints(points: List[P]): List[P]
+    def crossProduct(p1: P, p2: P, p3: P): Turn
   }
 
-  implicit def grahamScanAlgorithm: ConvexHullAlgorithm = new ConvexHullAlgorithm {
-    override def getHull(points: NonEmptyList[Point]): Either[Error, NonEmptyList[Point]]= {
-      val pointsList = points.value
-
-      val lowestYPoint: Point = pointsList.minBy(_.Y)
-
-      def sortPoints(): List[Point] = pointsList.filterNot(_ == lowestYPoint).sortBy { p =>
-        val deltaY = p.Y - lowestYPoint.Y
-        val deltaX = p.X - lowestYPoint.X
-        Math.atan(deltaY / deltaX) * 180 / Math.PI
+  object PointAlgebra {
+    implicit def twoDimensionAlgebra: PointAlgebra[Point] = new PointAlgebra[Point] {
+      override def sortPoints(points: List[Point]): List[Point] = {
+       points.filterNot(_ == lowestPoint(points)).sortBy { p =>
+          val deltaY = p.Y - lowestPoint(points).Y
+          val deltaX = p.X - lowestPoint(points).X
+          Math.atan(deltaY / deltaX) * 180 / Math.PI
+        }
       }
 
-      def crossProduct(p1: Point, p2: Point, p3: Point): Turn = {
+      override def crossProduct(p1: Point, p2: Point, p3: Point): Turn = {
         // (x2 - x1)(y3 - y1) - (y2 - y1)(x3 - x1)
         (p2.X - p1.X) * (p3.Y - p1.Y) - (p2.Y - p1.Y) * (p3.X - p1.X) match {
           case 0.0                              => Turn.Collinear
@@ -54,14 +53,27 @@ object ConvexHull extends App {
         }
       }
 
+      override def lowestPoint(points: List[Point]): Point = points.minBy(_.Y)
+    }
+  }
+
+
+  trait ConvexHullAlgorithm[P] {
+    def getHull(points: NonEmptyList[P]): Either[Error, NonEmptyList[P]]
+  }
+
+  implicit def grahamScanAlgorithm[P](implicit pointAlgebra: PointAlgebra[P]): ConvexHullAlgorithm[P] = new ConvexHullAlgorithm[P] {
+    override def getHull(points: NonEmptyList[P]): Either[Error, NonEmptyList[P]]= {
+      val pointsList = points.value
+
       @tailrec
-      def go(pointsLeft: List[Point], convexHull: List[Point]): List[Point] = {
+      def go(pointsLeft: List[P], convexHull: List[P]): List[P] = {
         pointsLeft.length match {
           case 0 => convexHull
           case _ =>
             val (p2, p1, p0) = (pointsLeft.head, convexHull.head, convexHull.tail.head)
 
-            crossProduct(p2, p1, p0) match {
+            pointAlgebra.crossProduct(p2, p1, p0) match {
               case Turn.Right(v)  =>
                 println(s"[LOG] Rejecting $p1 with Right Turn cross product. Current convex hull: $convexHull")
                 go(pointsLeft, convexHull.tail)
@@ -75,13 +87,13 @@ object ConvexHull extends App {
         }
       }
 
-      val remainingPoints = sortPoints()
+      val remainingPoints = pointAlgebra.sortPoints(points)
       if(remainingPoints.length < 3) {
         println("[LOG] Length is not at least 3 - returning initial list")
         Right(points)
       }
       else {
-        val convexHull = List(remainingPoints.head, lowestYPoint)
+        val convexHull = List(remainingPoints.head, pointAlgebra.lowestPoint(points))
         val remaining = remainingPoints.drop(1)
 
         refineV[NonEmpty](go(remaining, convexHull)).left.map(_ => InsufficientPoints)
