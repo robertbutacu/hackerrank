@@ -19,42 +19,38 @@ object SuperQueens {
 
   case class Board(pieces: List[List[PositionStatus]])
   object Board {
-    def generateBoard: Board = Board((0 to 6).map(i => (0 to 6).map(_ => Free).toList).toList)
+    def generateBoard: Board = Board((0 to 6).map(_ => (0 to 6).map(_ => Free).toList).toList)
+
+    def updateBoard(board: Board, X: Int, Y: Int): Board = {
+     /* if(Board.isFreeSpot(board, X, Y)) {
+
+      }*/
+      ???
+    }
 
     def isFreeSpot(board: Board, X: Int, Y: Int): Boolean = {
       def isValidParameter(X: Int, Y: Int): Boolean = X >= 0 && X <= 6 && Y >= 0 && Y <= 6
 
       def freeDiagonally: Boolean = {
-        val xMoves = (X - 1 to 0 by -1).toList ::: (X + 1 to 6).toList
-        val yMoves = (Y - 1 to 0 by -1).toList ::: (Y + 1 to 6).toList
-
-        {for {
-            x <- xMoves
-            y <- yMoves
-            if isValidParameter(x, y)
-            if board.pieces(y)(x).isFree()
-          } yield (x, y)}.isEmpty
+        xMovesVertically(X).forall{x =>
+          yMovesHorizontally(Y).forall {
+            y => isValidParameter(x, y) && board.pieces(y)(x).isFree()
+          }
+        }
       }
 
       def freeVertically: Boolean = {
-        val left = (X - 1 to 0 by -1).toList
-        val right = (X + 1 to 6).toList
-        val xMoves = left ::: right
+        xMovesVertically(X).forall(x => isValidParameter(x, Y) && board.pieces(Y)(x).isFree())
+      }
 
-        {for {
-          x <- xMoves
-          if isValidParameter(x, Y)
-          if board.pieces(Y)(x).isFree()
-        } yield x}.isEmpty
+      def freeHorizontally: Boolean = {
+        yMovesHorizontally(Y).forall(y => isValidParameter(X, y) && board.pieces(y)(X).isFree())
       }
 
       def freeKnightMove: Boolean = {
-        val xMoves = List(X + 2, X - 2)
-        val yMoves = List(Y + 1, Y - 1)
-
         {for {
-          x <- xMoves
-          y <- yMoves
+          x <- xKnightMoves(X)
+          y <- yKnightMoves(Y)
           if isValidParameter(x, y)
           if board.pieces(y)(x).isFree()
         } yield (x, y)}.isEmpty
@@ -63,6 +59,12 @@ object SuperQueens {
 
       freePosition && freeDiagonally && freeVertically && freeKnightMove
     }
+
+    def xMovesVertically(X: Int): List[Int] = (X - 1 to 0 by -1).toList ::: (X + 1 to 6).toList
+    def yMovesHorizontally(Y: Int): List[Int] = (Y - 1 to 0 by -1).toList ::: (Y + 1 to 6).toList
+    def xKnightMoves(X: Int): List[Int] = List(X + 2, X - 2)
+    def yKnightMoves(Y: Int): List[Int] = List(Y + 1, Y - 1)
+
   }
 
 
