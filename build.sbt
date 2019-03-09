@@ -8,3 +8,5 @@ libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.4"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % "test"
 libraryDependencies += "org.scalamock" %% "scalamock" % "4.0.0" % Test
 libraryDependencies += "eu.timepit"    %% "refined"   % "0.9.4"
+libraryDependencies += "org.typelevel" %% "cats-core" % "1.6.0"
+
